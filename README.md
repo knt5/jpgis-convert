@@ -1,3 +1,3 @@
 # JPGIS GML converter
 
-Convert JPGIS GML to GeoJSON
+Convert JPGIS GML file to GeoJSON
