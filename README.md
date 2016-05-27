@@ -1,2 +1,3 @@
-# jpgis-convert
+# JPGIS GML converter
+
 Convert JPGIS GML to GeoJSON
