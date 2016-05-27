@@ -1,3 +1,3 @@
 # JPGIS GML converter
 
-Convert JPGIS GML file to GeoJSON
+Convert [JPGIS GML](http://fgd.gsi.go.jp/download/) file to GeoJSON
