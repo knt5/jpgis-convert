@@ -1,6 +1,6 @@
 # JPGIS GML converter
 
-[JPGIS GML](http://fgd.gsi.go.jp/download/) file to GeoJSON converter (only for type BldA).
+[JPGIS GML](http://fgd.gsi.go.jp/download/) file to GeoJSON converter (only for type BldA = Peripheral lines of buildings).
 
 This is not a XML parser.
 
