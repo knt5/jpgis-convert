@@ -1,0 +1,30 @@
+{
+  "name": "jpgis-convert",
+  "description": "JPGIS GML converter",
+  "version": "1.0.0",
+  "author": "knt5",
+  "license": "MIT",
+  "main": "index.js",
+  "config": {
+    "node_path": "./src:./test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/knt5/jpgis-convert.git"
+  },
+  "keywords": [
+    "gis",
+    "gsi",
+    "gml",
+    "geo",
+    "geojson",
+    "jpgis"
+  ],
+  "bugs": {
+    "url": "https://github.com/knt5/jpgis-convert/issues"
+  },
+  "homepage": "https://github.com/knt5/jpgis-convert#readme"
+}
