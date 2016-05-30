@@ -17,11 +17,10 @@
   },
   "keywords": [
     "gis",
-    "gsi",
+    "jpgis",
     "gml",
     "geo",
-    "geojson",
-    "jpgis"
+    "geojson"
   ],
   "bugs": {
     "url": "https://github.com/knt5/jpgis-convert/issues"
