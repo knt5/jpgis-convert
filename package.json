@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "author": "knt5",
   "license": "MIT",
-  "main": "dist/jpgis-convert.js",
+  "main": "src/index.js",
   "config": {
     "node_path": "./src:./test"
   },
