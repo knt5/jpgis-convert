@@ -14,7 +14,7 @@ gulp.task('lint:js', function() {
 	.pipe(eslint.failAfterError());
 });
 
-// Lint all
+// lint
 gulp.task('lint', [
 	'lint:js'
 ]);
