@@ -40,7 +40,7 @@ var config = {
 			]
 		}
 	},
-	eslint: eslintConfig;
+	eslint: eslintConfig
 };
 
 module.exports = config;
