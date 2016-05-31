@@ -34,7 +34,8 @@ var config = {
 	lint: {
 		js: {
 			path: [
-				'gulp/task/config.js',
+				'gulpfile.js',
+				'gulp/config.js',
 				'gulp/task/**/*.js',
 				'src/**/*.js'
 			]
