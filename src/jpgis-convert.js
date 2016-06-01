@@ -2,45 +2,91 @@ const fs = require('fs');
 const readline = require('readline');
 
 //=========================================================
-// Convert JPGIS GML file to GeoJSON
-var convert = (filePath, options) => {
-	var count = 0;
-	var output = process.stdout;
+var output = process.stdout;
+
+//=========================================================
+/**
+ * Convert JPGIS GML files to GeoJSON
+ */
+var convert = (filePath) => {
+	var filePaths;
 	
-	var rl = readline.createInterface({
-		input: fs.ReadStream(filePath),
-		output: null
-	});
+	// Make filePaths
+	if (typeof filePath === 'string') {
+		filePaths = [filePath];
+	} else if (typeof filePath === 'object' && filePath instanceof Array) {
+		filePaths = filePath;
+	}
 	
+	// Throw Error
+	if (!filePaths) {
+		throw new TypeError('1st argument must be string or array');
+	}
+	
+	// Output header
 	output.write('{\n');
 	output.write('"type":"FeatureCollection",\n');
 	output.write('"crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:EPSG::4612"}},\n');
 	output.write('"features":[\n');
 	
-	rl.on('line', (line) => {
-		var feature = getFeature(line);
-		
-		if (feature) {
-			let json = JSON.stringify(feature);
-			
-			if (count === 0) {
-				output.write(json + '\n');
-			} else {
-				output.write(',' + '\n' + json);
-			}
-			
-			count ++;
-		}
-		
-	}).on('close', () => {
-		output.write(']\n}\n');
-	});
+	// Generate and output features
+	generateFeatures(filePaths);
 	
-	rl.resume();
 };
 
 //=========================================================
-// Get feature
+/**
+ * Generate features from multiple JPGIS GML files
+ */
+function generateFeatures(filePaths) {
+	var count = 0;
+	var pathIndex = 0;
+	var rl;
+	
+	function createReadline() {
+		return readline.createInterface({
+			input: fs.ReadStream(filePaths[pathIndex]),
+			output: null
+		});
+	}
+	
+	function registerReadLineHandler(rl) {
+		rl.on('line', (line) => {
+			var feature = getFeature(line);
+			
+			if (feature) {
+				let json = JSON.stringify(feature);
+				
+				if (count === 0) {
+					output.write(json + '\n');
+				} else {
+					output.write(',' + '\n' + json);
+				}
+				
+				count ++;
+			}
+		}).on('close', () => {
+			pathIndex ++;
+			
+			if (pathIndex >= filePaths.length) {
+				output.write(']\n}\n');
+			} else {
+				rl = createReadline();
+				registerReadLineHandler(rl);
+				rl.resume();
+			}
+		});
+	}
+	
+	rl = createReadline();
+	registerReadLineHandler(rl);
+	rl.resume();
+}
+
+//=========================================================
+/**
+ * Get feature
+ */
 var getFeature = (() => {
 	var feature;
 	var ring;
