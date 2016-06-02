@@ -9,7 +9,7 @@ var output = process.stdout;
 /**
  * Convert JPGIS GML files to GeoJSON
  */
-var convert = (filePath) => {
+var convert = (filePath, options) => {
 	var filePaths;
 	
 	// Make filePaths
@@ -31,18 +31,21 @@ var convert = (filePath) => {
 	output.write('"features":[\n');
 	
 	// Generate and output features
-	generateFeatures(filePaths);
-	
+	generateFeatures(filePaths, options);
 };
 
 //=========================================================
 /**
  * Generate features from multiple JPGIS GML files
  */
-function generateFeatures(filePaths) {
+function generateFeatures(filePaths, options) {
 	var count = 0;
 	var pathIndex = 0;
 	var rl;
+	if(options) {
+		var ignoreTypes = options.ignoreTypes;
+		var typeId = options.typeId;
+	}
 	
 	function createReadline() {
 		return readline.createInterface({
@@ -56,17 +59,31 @@ function generateFeatures(filePaths) {
 			var feature = getFeature(line);
 			
 			if (feature) {
-				let json = JSON.stringify(feature);
-				
-				if (count === 0) {
-					output.write(json + '\n');
-				} else {
-					output.write(',' + '\n' + json);
+				// Check options.ignoreTypes to ignore the feature or not
+				if (!ignoreTypes || (ignoreTypes && !ignoreTypes.has(feature.properties.type))) {
+					
+					// Convert type name to id
+					if (typeId !== undefined && typeId[feature.properties.type] !== undefined) {
+						feature.properties.type = typeId[feature.properties.type];
+					}
+					
+					// Convert to JSON string
+					let json = JSON.stringify(feature);
+					
+					// Output JSON
+					if (count === 0) {
+						output.write(json + '\n');
+					} else {
+						output.write(',' + '\n' + json);
+					}
+					
+					// Increment count of outputted features
+					count ++;
 				}
-				
-				count ++;
 			}
+			
 		}).on('close', () => {
+			// Next index of JPGIS GML file path
 			pathIndex ++;
 			
 			if (pathIndex >= filePaths.length) {
@@ -128,6 +145,11 @@ var getFeature = (() => {
 		} else if (line.substr(0, 4) === '<fid') {
 			if (opened) {
 				feature.properties.fid = line.split('>')[1].split('<')[0];
+			}
+			
+		} else if (line.substr(0, 5) === '<type') {
+			if (opened) {
+				feature.properties.type = line.split('>')[1].split('<')[0];
 			}
 			
 		} else if (line === '<gml:posList>') {
