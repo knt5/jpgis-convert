@@ -18,5 +18,6 @@ gulp/work/
 # GSI and JAXA data directory
 /data/
 
-# Output files of example tools
-/example/*.json
+# Example output files
+/example/*.geojson
+/example/shape/
