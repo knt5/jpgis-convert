@@ -9,7 +9,7 @@ var output = process.stdout;
 /**
  * Convert JPGIS GML files to GeoJSON
  */
-var convert = (filePath, options) => {
+var convert = (filePath, options, callback) => {
 	var filePaths;
 	
 	// Make filePaths
@@ -25,7 +25,7 @@ var convert = (filePath, options) => {
 	}
 	
 	// Open output file
-	if(options.output) {
+	if (options.output) {
 		output = fs.createWriteStream(options.output);
 	}
 	
@@ -36,18 +36,18 @@ var convert = (filePath, options) => {
 	output.write('"features":[\n');
 	
 	// Generate and output features
-	generateFeatures(filePaths, options);
+	generateFeatures(filePaths, options, callback);
 };
 
 //=========================================================
 /**
  * Generate features from multiple JPGIS GML files
  */
-function generateFeatures(filePaths, options) {
+function generateFeatures(filePaths, options, callback) {
 	var count = 0;
 	var pathIndex = 0;
 	var rl;
-	if(options) {
+	if (options) {
 		var ignoreTypes = options.ignoreTypes;
 		var typeId = options.typeId;
 	}
@@ -93,6 +93,10 @@ function generateFeatures(filePaths, options) {
 			
 			if (pathIndex >= filePaths.length) {
 				output.write(']\n}\n');
+				
+				if (callback) {
+					callback();
+				}
 			} else {
 				rl = createReadline();
 				registerReadLineHandler(rl);
