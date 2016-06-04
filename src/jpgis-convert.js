@@ -24,6 +24,11 @@ var convert = (filePath, options) => {
 		throw new TypeError('1st argument must be string or array');
 	}
 	
+	// Open output file
+	if(options.output) {
+		output = fs.createWriteStream(options.output);
+	}
+	
 	// Output header
 	output.write('{\n');
 	output.write('"type":"FeatureCollection",\n');
