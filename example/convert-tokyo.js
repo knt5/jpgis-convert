@@ -1,7 +1,9 @@
+const glob = require('glob');
+const path = require('path');
 const convert = require('jpgis-convert');
 
-// Directory
-//const dir = __dirname + '/../data/gsi-tokyo/building-peripheral-line/';
+// Parent directory
+const parentDirectory = __dirname + '/../data/gsi-tokyo/building-peripheral-line/';
 
 // Table of type name to id
 const typeId = {
@@ -11,14 +13,23 @@ const typeId = {
 	'堅ろう無壁舎': 3
 };
 
-const dir = __dirname + '/../data/gsi-tokyo/building-peripheral-line/FG-GML-533946-11-20151001/';
+// Get Directory list
+const directories = glob.sync(parentDirectory + '*/');
+let dirIndex = 0;
 
-convert([
-	dir + 'FG-GML-533946-BldA-20151001-0001.xml',
-	dir + 'FG-GML-533946-BldA-20151001-0002.xml',
-	dir + 'FG-GML-533946-BldA-20151001-0003.xml',
-	dir + 'FG-GML-533946-BldA-20151001-0004.xml'
-], {
-	output: '533946.geojson',
-	typeId: typeId
-});
+// Convert
+convertFiles();
+function convertFiles() {
+	if (dirIndex < directories.length) {
+		let dir = directories[dirIndex];
+		let files = glob.sync(dir + '*BldA*.xml');
+		let name = path.basename(dir).split('-')[2];
+		
+		convert(files, {
+			output: name + '.geojson',
+			typeId: typeId
+		}, convertFiles);
+		
+		dirIndex ++;
+	}
+}
