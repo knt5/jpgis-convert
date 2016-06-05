@@ -13,7 +13,6 @@ function generate() {
 	name=$2
 	bounds=$3
 	
-	
 	# Generate GeoJSON
 	ogr2ogr \
 		-lco ENCODING=UTF-8 \
