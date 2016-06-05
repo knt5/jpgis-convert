@@ -1,6 +1,8 @@
 #!/bin/bash
 
-mkdir shape
+dir=simplified
+
+mkdir "$dir"
 
 \ls *.geojson | while read line
 do
@@ -13,6 +15,6 @@ do
 		-t_srs EPSG:4612 \
 		-f 'ESRI Shapefile' \
 		-simplify 0.00001 \
-		"shape/$name".shp \
+		"$dir/$name".shp \
 		"$name".geojson
 done
