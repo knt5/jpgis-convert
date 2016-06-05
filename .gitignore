@@ -21,3 +21,4 @@ gulp/work/
 # Example output files
 /example/*.geojson
 /example/simplified/
+/example/cities/
