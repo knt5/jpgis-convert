@@ -13,6 +13,7 @@ function generate() {
 	name=$2
 	bounds=$3
 	
+	
 	# Generate GeoJSON
 	ogr2ogr \
 		-lco ENCODING=UTF-8 \
@@ -23,20 +24,28 @@ function generate() {
 		"$dir/$name".geojson \
 		"simplified/$src".shp
 	
-	# Crop DSM
+	# Convert bounds parameter for gdal_translate from ogr2ogr
 	dsmBounds=`echo $bounds | awk '{print $1" "$4" "$3" "$2}'`
-	gdal_translate \
-		-projwin $dsmBounds \
-		-of "AAIGrid" \
-		"$srcDsm" \
-		"$dir/$name.dsm.asc"
 	
-	# Crop DEM
-	gdal_translate \
-		-projwin $dsmBounds \
-		-of "AAIGrid" \
-		"$srcDem" \
-		"$dir/$name.dem.asc"
+	for format in "AAIGrid asc" "PNG png"
+	do
+		formatName=`echo $format | awk '{print $1}'`
+		formatSuffix=`echo $format | awk '{print $2}'`
+		
+		# Crop DSM
+		gdal_translate \
+			-projwin $dsmBounds \
+			-of "$formatName" \
+			"$srcDsm" \
+			"$dir/$name.dsm.$formatSuffix"
+		
+		# Crop DEM
+		gdal_translate \
+			-projwin $dsmBounds \
+			-of "$formatName" \
+			"$srcDem" \
+			"$dir/$name.dem.$formatSuffix"
+	done
 }
 
 #----------------------------------------------------------
