@@ -26,6 +26,7 @@ function generate() {
 	# Convert bounds parameter for gdal_translate from ogr2ogr
 	dsmBounds=`echo $bounds | awk '{print $1" "$4" "$3" "$2}'`
 	
+	# Convert DSM and DEM from GeoTIFF to asc and png
 	for format in "AAIGrid asc" "PNG png"
 	do
 		formatName=`echo $format | awk '{print $1}'`
