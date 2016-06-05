@@ -1,6 +1,7 @@
 #!/bin/bash
 
 dir="cities"
+srcDsm="../data/jaxa/dsm/N035E139/AVERAGE/N035E139_AVE_DSM.tif"
 
 mkdir "$dir"
 
@@ -22,6 +23,14 @@ function generate() {
 		"simplified/$src".shp
 	
 	# Crop DSM
+	dsmBounds=`echo $bounds | awk '{print $1" "$4" "$3" "$2}'`
+	echo $dsmBounds
+	gdal_translate \
+		-projwin $dsmBounds \
+		-a_srs EPSG:4612 \
+		-of "PNG" \
+		"$srcDsm" \
+		"$dir/$name.tif"
 	
 	# Crop DEM
 	
