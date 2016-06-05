@@ -24,7 +24,6 @@ function generate() {
 	
 	# Crop DSM
 	dsmBounds=`echo $bounds | awk '{print $1" "$4" "$3" "$2}'`
-	echo $dsmBounds
 	gdal_translate \
 		-projwin $dsmBounds \
 		-a_srs EPSG:4612 \
