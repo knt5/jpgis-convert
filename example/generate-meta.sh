@@ -17,7 +17,7 @@ do
 	
 	# City name
 	name=`basename "$line" | awk -F. '{print $1}'`
-	echo '	"'$name'": {'
+	echo "	'$name': {"
 	
 	# City DSM and DEM
 	j=0
@@ -31,14 +31,14 @@ do
 		
 		# Key (dsm or dem)
 		type=`basename "$path" | awk -F. '{print $2}'`
-		echo '		"'$type'": {'
+		echo "		$type: {"
 		
 		# Meta data of DSM/DEM
 		k=0
 		keys=("width" "height" "lng" "lat" "size")
 		head -n 5 "$path" | while read row
 		do
-			echo -n '			"'${keys[k]}'": '
+			echo -n "			${keys[k]}: "
 			echo -n `echo "$row" | awk '{print $2}'`
 			
 			if [ $k -ne 4 ]
@@ -60,4 +60,4 @@ do
 done
 
 echo ""
-echo "}"
+echo "};"
