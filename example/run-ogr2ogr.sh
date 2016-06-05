@@ -10,9 +10,9 @@ do
 		-where 'OGR_GEOM_AREA > 0.0000000025' \
 		-lco ENCODING=UTF-8 \
 		-s_srs EPSG:4612 \
-		-t_srs EPSG:4326 \
+		-t_srs EPSG:4612 \
 		-f 'ESRI Shapefile' \
-		-simplify 0.000005 \
+		-simplify 0.00001 \
 		"shape/$name".shp \
 		"$name".geojson
 done
