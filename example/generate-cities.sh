@@ -2,6 +2,7 @@
 
 dir="cities"
 srcDsm="../data/jaxa/dsm/N035E139/AVERAGE/N035E139_AVE_DSM.tif"
+srcDem="../data/gsi-tokyo/dem/FG-GML-5339-46-DEM5A/533946.tif"
 
 mkdir "$dir"
 
@@ -26,13 +27,16 @@ function generate() {
 	dsmBounds=`echo $bounds | awk '{print $1" "$4" "$3" "$2}'`
 	gdal_translate \
 		-projwin $dsmBounds \
-		-a_srs EPSG:4612 \
-		-of "PNG" \
+		-of "AAIGrid" \
 		"$srcDsm" \
-		"$dir/$name.tif"
+		"$dir/$name.dsm.asc"
 	
 	# Crop DEM
-	
+	gdal_translate \
+		-projwin $dsmBounds \
+		-of "AAIGrid" \
+		"$srcDem" \
+		"$dir/$name.dem.asc"
 }
 
 #----------------------------------------------------------
