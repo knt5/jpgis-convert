@@ -22,3 +22,4 @@ gulp/work/
 /example/*.geojson
 /example/simplified/
 /example/cities/
+/example/meta/

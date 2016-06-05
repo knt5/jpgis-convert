@@ -7,8 +7,9 @@ bash convert-tokyo.sh
 # Simplify and remove small polygons
 bash simplify-polygons.sh
 
-# Generate DEM asc
-
-# Generate cities
+# Generate cities DSM, DEM, asc and png
 bash generate-cities.sh
+
+# Generate meta information of cities
+bash generate-meta.sh
 ```
