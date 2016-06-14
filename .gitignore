@@ -13,7 +13,7 @@ node_modules
 .sass-cache
 
 # Gulp working directory
-gulp/work/
+/gulp/work/
 
 # GSI and JAXA data directory
 /data/
@@ -23,3 +23,4 @@ gulp/work/
 /example/simplified/
 /example/cities/
 /example/meta/
+/example/dem/
