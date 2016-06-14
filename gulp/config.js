@@ -37,7 +37,8 @@ var config = {
 				'gulpfile.js',
 				'gulp/config.js',
 				'gulp/task/**/*.js',
-				'src/**/*.js'
+				'src/**/*.js',
+				'example/**/*.js'
 			]
 		}
 	},
