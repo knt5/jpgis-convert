@@ -2,7 +2,7 @@
 
 dir="cities"
 srcDsm="../data/jaxa/dsm/N035E139/AVERAGE/N035E139_AVE_DSM.tif"
-srcDem="../data/gsi-tokyo/dem/FG-GML-5339-46-DEM5A/533946.tif"
+srcDem="dem/533946.tif"
 
 mkdir "$dir"
 
@@ -17,14 +17,14 @@ function generate() {
 	ogr2ogr \
 		-lco ENCODING=UTF-8 \
 		-s_srs EPSG:4612 \
-		-t_srs EPSG:4612 \
+		-t_srs EPSG:4326 \
 		-f 'GeoJSON' \
 		-spat $bounds \
 		"$dir/$name".geojson \
 		"simplified/$src".shp
 	
 	# Convert bounds parameter for gdal_translate from ogr2ogr
-	dsmBounds=`echo $bounds | awk '{print $1" "$4" "$3" "$2}'`
+	dsmBounds=`node get-ws-en.js "$dir/$name".geojson | awk '{print $1" "$4" "$3" "$2}'`
 	
 	# Convert DSM and DEM from GeoTIFF to asc and png
 	for format in "AAIGrid asc" "PNG png"
