@@ -18,4 +18,7 @@ function convertDem() {
 }
 
 #----------------------------------------------------------
-convertDem "../data/gsi-tokyo/dem/FG-GML-5339-46-DEM5A/533946.tif" "$dir/533946.tif"
+convertDem "../data/gsi-tokyo/dem/FG-GML-5339-35-DEM5A/merge.tif" "$dir/533935.tif"
+convertDem "../data/gsi-tokyo/dem/FG-GML-5339-36-DEM5A/merge.tif" "$dir/533936.tif"
+convertDem "../data/gsi-tokyo/dem/FG-GML-5339-45-DEM5A/merge.tif" "$dir/533945.tif"
+convertDem "../data/gsi-tokyo/dem/FG-GML-5339-46-DEM5A/merge.tif" "$dir/533946.tif"
