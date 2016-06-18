@@ -2,7 +2,7 @@
 
 dir="cities"
 srcDsm="../data/jaxa/dsm/N035E139/AVERAGE/N035E139_AVE_DSM.tif"
-srcDem="dem/533946.tif"
+demDir="dem"
 
 mkdir "$dir"
 
@@ -43,7 +43,7 @@ function generate() {
 		gdal_translate \
 			-projwin $dsmBounds \
 			-of "$formatName" \
-			"$srcDem" \
+			"$demDir/$src.tif" \
 			"$dir/$name.dem.$formatSuffix"
 	done
 }
@@ -69,16 +69,11 @@ generate "533946" "tokyo-dome" "139.75002 35.70237 139.75844 35.70825"
 # Tokyo university
 generate "533946" "tokyo-university" "139.75974 35.70775 139.76753 35.71721"
 
-### Large area
-
-# Tokyo (large)
-generate "533946" "large-tokyo" "139.75069 35.67257 139.77940 35.72249"
-
 #----------------------------------------------------------
 # 533935
 
 # Shibuya
-generate "533935" "shibuya" "139.69505 35.65104 139.71046 35.66324"
+generate "533935" "shibuya" "139.69755 35.65350 139.70729 35.66173"
 
 #----------------------------------------------------------
 # 533936
