@@ -7,7 +7,7 @@ This is NOT a XML parser.
 ## Installation
 
 ```
-npm install jpgis-convert
+npm install jpgis-convert  # Not yet
 ```
 
 ## Usage
