@@ -40,7 +40,7 @@ convert(files, options, callback);
 			'堅ろう無壁舎': 3
 		}
 		```	
-	- ignoreTypes - A ```Set``` that has building type names in BldA.xml like "普通建物".
+	- ignoreTypes - A ```Set``` that has building type names in BldA.xml like "普通建物". Such buildings will be ignored.
 - callback
 
 ## Background and purpose
