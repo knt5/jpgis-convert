@@ -13,12 +13,12 @@ npm install jpgis-convert  # Not yet
 ## Usage
 
 ```
-const convert = require('jpgis-convert');
+var convert = require('jpgis-convert');
 
 convert(files, options, callback);
 ```
 
-- files - Array of strings of BldA.xml file paths
+- files - Array of BldA.xml file path strings
 - options
 	- output
 	- typeId
