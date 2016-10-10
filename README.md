@@ -13,7 +13,7 @@ npm install jpgis-convert  # Not yet
 ## Usage
 
 ```
-var convert = require('jpgis-convert');
+const convert = require('jpgis-convert');
 
 convert(files, options, callback);
 ```
