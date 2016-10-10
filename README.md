@@ -20,8 +20,8 @@ convert(files, options, callback);
 
 - files - Array of BldA.xml file path strings
 - options
-	- output
-	- typeId
+	- output - An output file path. If ```output``` is not set, stdout is used.
+	- typeId - A object that key is building type name in BldA.xml and value is id number. It's used for TypeName-to-TypeID table.
 	- ignoreTypes
 - callback
 
