@@ -21,7 +21,7 @@ convert(files, options, callback);
 - files - Array of strings of BldA.xml file path
 - options
 	- output - An output file path. If ```output``` is not set, stdout is used.
-	- typeId - An object whose key is building type name in BldA.xml and value is id number. It's used for TypeName-to-TypeID conversion table.
+	- typeId - An object whose key is building type name in BldA.xml and value is id number. It's used for TypeName-to-TypeID conversion table. If ```typeId``` is not set, ```feature.properties.type``` in output GeoJSON will be gone. And if this conversion table is not perfect (= BldA.xml has unknown type name), ```feature.properties.type``` of such buildings will be gone, too.
 	- ignoreTypes - A ```Set``` that has building type names in BldA.xml like "普通建物".
 - callback
 
