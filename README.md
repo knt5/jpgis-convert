@@ -18,7 +18,7 @@ var convert = require('jpgis-convert');
 convert(files, options, callback);
 ```
 
-- files - Array of BldA.xml file path strings
+- files - Array of strings of BldA.xml file path
 - options
 	- output - An output file path. If ```output``` is not set, stdout is used.
 	- typeId - An object whose key is building type name in BldA.xml and value is id number. It's used for TypeName-to-TypeID conversion table.
