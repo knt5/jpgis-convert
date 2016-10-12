@@ -18,12 +18,12 @@ const convert = require('jpgis-convert');
 convert(files, options, callback);
 ```
 
-- files - Array of strings of BldA.xml file path
+- files - ```Array``` of strings of BldA.xml file paths
 - options
-	- output - An output file path. If ```output``` is not set, stdout is used.
-	- typeId - An object whose key is building type name in BldA.xml and value is ID number. It's used for TypeName-to-TypeID conversion table.
+	- output - ```String``` of an output file path. If you don't set, stdout will be output stream.
+	- typeId - ```Object``` of type name to type ID mapper. Key is name, value is ID. BldA.xml has only names.
 		- If ```typeId``` is not set, ```feature.properties.type``` in output GeoJSON will be gone.
-		- If this conversion table is not perfect (= BldA.xml has unknown type name), ```feature.properties.type``` of such buildings will be gone, too. But you don't need to be afraid, BldA.xml has only 4 types (at least in 2016). Typically you need ```typeId``` like the following:
+		- If this mapping table is not perfect (= BldA.xml has unknown type name), ```feature.properties.type``` in the output data will be gone, too. But you don't need to be afraid, BldA.xml has only 4 types (at least in 2016). Typically you need ```typeId``` like the following:
 		```
 		{
 			'普通建物': 0,
@@ -40,8 +40,8 @@ convert(files, options, callback);
 			'堅ろう無壁舎': 3
 		}
 		```	
-	- ignoreTypes - A ```Set``` that has building type names in BldA.xml like "普通建物". Such buildings will be ignored.
-- callback
+	- ignoreTypes - ```Set``` of building type names like "普通建物". These buildings will be ignored.
+- callback - ```Function``` to be called when process is finished.
 
 ## Example
 
