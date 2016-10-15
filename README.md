@@ -1,6 +1,6 @@
 # JPGIS GML converter
 
-A converter from [JPGIS GML](http://fgd.gsi.go.jp/download/) to GeoJSON (only for type BldA = Peripheral lines of buildings).
+A [JPGIS GML](http://fgd.gsi.go.jp/download/) to GeoJSON converter. (Only for type BldA = Peripheral lines of buildings)
 
 This is NOT a XML parser.
 
@@ -22,8 +22,7 @@ convert(files, options, callback);
 - options
 	- output - ```String``` of an output file path. If you don't set, stdout will be output stream.
 	- typeId - ```Object``` of type name to type ID mapper. Key is name, value is ID. BldA.xml has only names.
-		- If ```typeId``` is not set, ```feature.properties.type``` in output GeoJSON will be gone.
-		- If this mapping table is not perfect (= BldA.xml has unknown type name), ```feature.properties.type``` in the output data will be gone, too. But you don't need to be afraid, BldA.xml has only 4 types (at least in 2016). Typically you need ```typeId``` like the following:
+		- Example:
 		```
 		{
 			'普通建物': 0,
@@ -32,15 +31,7 @@ convert(files, options, callback);
 			'堅ろう無壁舎': 3
 		}
 		```
-		- If you need to remove "普通無壁舎"'s ```feature.properties.type``` (super rare case), you set ```typeId``` like the following:
-		```
-		{
-			'普通建物': 0,
-			'堅ろう建物': 1,
-			'堅ろう無壁舎': 3
-		}
-		```	
-	- ignoreTypes - ```Set``` of building type names like "普通建物". These buildings will be ignored.
+	- ignoreTypes - ```Set``` of building type names to ignore like "普通建物".
 - callback - ```Function``` to be called when process is finished.
 
 ## Example
