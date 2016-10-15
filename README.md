@@ -21,18 +21,17 @@ convert(files, options, callback);
 - files - ```Array``` of strings of BldA.xml file paths
 - options
 	- output - ```String``` of an output file path. If you don't set, stdout will be output stream.
-	- typeId - ```Object``` of type name to type ID mapper. Key is name, value is ID. BldA.xml has only names.
-		- Example:
-		```
-		{
-			'普通建物': 0,
-			'堅ろう建物': 1,
-			'普通無壁舎': 2,
-			'堅ろう無壁舎': 3
-		}
-		```
+	- typeId - ```Object``` of type name to type ID mapper. Key is name, value is ID. BldA.xml has only names. Example:
+	```
+	{
+		'普通建物': 0,
+		'堅ろう建物': 1,
+		'普通無壁舎': 2,
+		'堅ろう無壁舎': 3
+	}
+	```
 	- ignoreTypes - ```Set``` of building type names to ignore like "普通建物".
-- callback - ```Function``` to be called when process is finished.
+- callback - ```Function``` to be called when the process finished.
 
 ## Example
 
