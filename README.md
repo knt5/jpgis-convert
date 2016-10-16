@@ -35,6 +35,24 @@ convert(files, options, callback);
 
 ## Example
 
+```
+const convert = require('jpgis-convert');
+
+convert([
+	'path/to/FG-GML-533935-BldA-20160401-0001.xml',
+	'path/to/FG-GML-533935-BldA-20160401-0002.xml'
+], {
+	output: 'output.geojson',
+	typeId: {
+		'普通建物': 0,
+		'堅ろう建物': 1,
+		'普通無壁舎': 2,
+		'堅ろう無壁舎': 3
+	},
+	ignoreTypes: new Set(['普通無壁舎'])
+}, () => console.log('finished'));
+```
+
 ## Background and purpose
 
 In May 2016, I found [FGDV](http://fgd.gsi.go.jp/download/menu.php) can't handle coordinates in ```<gml:interior>``` tags in ```<BldA>``` as individual ring. Coordinates of ```<gml:interior>``` and ```<gml:exterior>``` tags are merged to a ring. The tool convert JPGIS GML to broken shape files or any formats. [PSEA](http://psgsv2.gsi.go.jp/koukyou/public/sien/pindex.html) had a same problem. I needed a tool to convert JPGIS GML (type BldA) to right GeoJSON for [my project](https://github.com/knt5/city-generator).
