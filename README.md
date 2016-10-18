@@ -1,8 +1,10 @@
-# JPGIS GML converter
+# jpgis-convert
 
-A [JPGIS GML](http://fgd.gsi.go.jp/download/) to GeoJSON converter. (Only for type BldA = Peripheral lines of buildings)
+[JPGIS GML](http://fgd.gsi.go.jp/download/) to GeoJSON converter for [node](https://nodejs.org/).
 
-This is NOT a XML parser.
+It works for BldA type JPGIS GML that is peripheral lines of buildings.
+
+It's NOT a XML parser.
 
 ## Installation
 
@@ -18,10 +20,10 @@ const convert = require('jpgis-convert');
 convert(files, options, callback);
 ```
 
-- files - ```Array``` of strings of BldA.xml file paths
+- files - ```Array``` of BldA.xml file path strings or ```String``` of the path.
 - options
-	- output - ```String``` of an output file path. If you don't set, stdout will be output stream.
-	- typeId - ```Object``` of type name to type ID mapper. Key is name, value is ID. BldA.xml has only names. Example:
+	- output - ```String``` of an output file path. If you don't set, stdout is used.
+	- typeId - ```Object``` of type name to type ID mapper. BldA.xml has only names. Example:
 	```
 	{
 		'普通建物': 0,
