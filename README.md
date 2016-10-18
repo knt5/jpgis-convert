@@ -9,14 +9,13 @@ It's NOT a XML parser.
 ## Installation
 
 ```
-npm install jpgis-convert  # Not yet
+npm install --save jpgis-convert  # Not yet
 ```
 
 ## Usage
 
 ```
 const convert = require('jpgis-convert');
-
 convert(files, options, callback);
 ```
 
