@@ -2,7 +2,7 @@
 
 [JPGIS GML](http://fgd.gsi.go.jp/download/) to GeoJSON converter for [node](https://nodejs.org/).
 
-It works for BldA type JPGIS GML that is peripheral lines of buildings.
+It works for the type-BldA JPGIS GML that is peripheral lines of buildings.
 
 It's NOT a XML parser.
 
