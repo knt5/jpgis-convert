@@ -20,7 +20,7 @@ convert(files, options, callback);
 ```
 
 - files - ```Array``` of BldA.xml file path strings or ```String``` of the path.
-- options - ```Object```
+- options - ```Object``` of the following keys and values
 	- output - ```String``` of an output file path. If you don't set, stdout is used.
 	- typeId - ```Object``` of type name to type ID mapper. BldA.xml has only names. Example:
 	```
