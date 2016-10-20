@@ -14,13 +14,3 @@ node_modules
 
 # Gulp working directory
 /gulp/work/
-
-# GSI and JAXA data directory
-/data/
-
-# Example output files
-/example/*.geojson
-/example/simplified/
-/example/cities/
-/example/meta/
-/example/dem/
