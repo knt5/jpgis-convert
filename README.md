@@ -32,7 +32,7 @@ convert(files, options, callback);
 	- ignoreTypes - ```Set``` of building type names to ignore like "普通建物".
 - callback - ```Function``` to be called when the process finished.
 
-## Example
+### Example
 
 ```
 const convert = require('jpgis-convert');
