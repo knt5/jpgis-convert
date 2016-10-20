@@ -1,16 +1,3 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-
-# Dependency directory
 node_modules
-
-# Hidden meta data file of Mac OS X
+npm-debug.log*
 .DS_Store
-
-# Sass cache directory
-.sass-cache
-
-# Gulp working directory
-/gulp/work/
