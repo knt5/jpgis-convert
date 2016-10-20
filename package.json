@@ -25,14 +25,5 @@
     "converter",
     "convert"
   ],
-  "homepage": "https://github.com/knt5/jpgis-convert",
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-eslint": "^2.0.0",
-    "gulp-plumber": "^1.1.0",
-    "require-dir": "^0.3.0"
-  },
-  "dependencies": {
-    "glob": "^7.0.3"
-  }
+  "homepage": "https://github.com/knt5/jpgis-convert"
 }
