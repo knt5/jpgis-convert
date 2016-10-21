@@ -1,166 +1,159 @@
 const fs = require('fs');
 const readline = require('readline');
 
-//=========================================================
+// =========================================================
 // Output stream
-var output = process.stdout;
+let output = process.stdout;
 
-//=========================================================
+// =========================================================
 /**
  * Convert JPGIS GML files to GeoJSON
  */
-var convert = (filePath, options, callback) => {
-	var filePaths;
-	
+function convert(filePath, options, callback) {
+	let filePaths;
+
 	// Make filePaths
 	if (typeof filePath === 'string') {
 		filePaths = [filePath];
 	} else if (typeof filePath === 'object' && filePath instanceof Array) {
 		filePaths = filePath;
 	}
-	
+
 	// Throw Error
 	if (!filePaths) {
 		throw new TypeError('1st argument must be string or array');
 	}
-	
+
 	// Open output file
 	if (options.output) {
 		output = fs.createWriteStream(options.output);
 	}
-	
+
 	// Output header
 	output.write('{\n');
 	output.write('"type":"FeatureCollection",\n');
 	output.write('"crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:EPSG::4612"}},\n');
 	output.write('"features":[\n');
-	
+
 	// Generate and output features
 	generateFeatures(filePaths, options, callback);
-};
+}
 
-//=========================================================
+// =========================================================
 /**
  * Generate features from multiple JPGIS GML files
  */
 function generateFeatures(filePaths, options, callback) {
-	var count = 0;
-	var pathIndex = 0;
-	var rl;
+	let count = 0;
+	let pathIndex = 0;
+	let reader;
+	let ignoreTypes;
+	let typeId;
 	if (options) {
-		var ignoreTypes = options.ignoreTypes;
-		var typeId = options.typeId;
+		ignoreTypes = options.ignoreTypes;
+		typeId = options.typeId;
 	}
-	
+
 	function createReadline() {
 		return readline.createInterface({
 			input: fs.ReadStream(filePaths[pathIndex]),
-			output: null
+			output: null,
 		});
 	}
-	
+
 	function registerReadLineHandler(rl) {
 		rl.on('line', (line) => {
-			var feature = getFeature(line);
-			
+			const feature = getFeature(line);
+
 			if (feature) {
 				// Check options.ignoreTypes to ignore the feature or not
 				if (!ignoreTypes || (ignoreTypes && !ignoreTypes.has(feature.properties.type))) {
-					
 					// Convert type name to id
 					if (typeId !== undefined && typeId[feature.properties.type] !== undefined) {
 						feature.properties.type = typeId[feature.properties.type];
 					}
-					
+
 					// Convert to JSON string
-					let json = JSON.stringify(feature);
-					
+					const json = JSON.stringify(feature);
+
 					// Output JSON
 					if (count === 0) {
-						output.write(json + '\n');
+						output.write(`${json}\n`);
 					} else {
-						output.write(',' + '\n' + json);
+						output.write(`,\n${json}`);
 					}
-					
+
 					// Increment count of outputted features
-					count ++;
+					count++;
 				}
 			}
-			
 		}).on('close', () => {
 			// Next index of JPGIS GML file path
-			pathIndex ++;
-			
+			pathIndex++;
+
 			if (pathIndex >= filePaths.length) {
 				output.write(']\n}\n');
-				
+
 				if (callback) {
 					callback();
 				}
 			} else {
-				rl = createReadline();
-				registerReadLineHandler(rl);
-				rl.resume();
+				reader = createReadline();
+				registerReadLineHandler(reader);
+				reader.resume();
 			}
 		});
 	}
-	
-	rl = createReadline();
-	registerReadLineHandler(rl);
-	rl.resume();
+
+	reader = createReadline();
+	registerReadLineHandler(reader);
+	reader.resume();
 }
 
-//=========================================================
+// =========================================================
 /**
  * Get feature
  */
-var getFeature = (() => {
-	var feature;
-	var ring;
-	var opened = false;
-	var posListOpened = false;
-	
+let getFeature = (() => {
+	let feature;
+	let ring;
+	let opened = false;
+	let posListOpened = false;
+
 	return (line) => {
-		
 		if (posListOpened) {
 			if (line === '</gml:posList>') {
 				posListOpened = false;
 				feature.geometry.coordinates.push(ring);
-				
 			} else {
-				let latLng = line.split(' ');
-				let lat = parseFloat(latLng[0]);
-				let lng = parseFloat(latLng[1]);
+				const latLng = line.split(' ');
+				const lat = parseFloat(latLng[0]);
+				const lng = parseFloat(latLng[1]);
 				ring.push([lng, lat]);
 			}
-			
 		} else if (line.substr(0, 5) === '<BldA') {
 			opened = true;
 			feature = {
 				type: 'Feature',
 				properties: {
-					id: line.split('"')[1]
+					id: line.split('"')[1],
 				},
 				geometry: {
 					type: 'Polygon',
-					coordinates: []
-				}
+					coordinates: [],
+				},
 			};
-			
 		} else if (line.substr(0, 6) === '</BldA') {
 			opened = false;
 			return feature;
-			
 		} else if (line.substr(0, 4) === '<fid') {
 			if (opened) {
 				feature.properties.fid = line.split('>')[1].split('<')[0];
 			}
-			
 		} else if (line.substr(0, 5) === '<type') {
 			if (opened) {
 				feature.properties.type = line.split('>')[1].split('<')[0];
 			}
-			
 		} else if (line === '<gml:posList>') {
 			if (opened) {
 				posListOpened = true;
@@ -170,6 +163,6 @@ var getFeature = (() => {
 	};
 })();
 
-//=========================================================
+// =========================================================
 // Export
 module.exports = convert;
