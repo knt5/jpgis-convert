@@ -8,7 +8,8 @@
     "node_path": "./src:./test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint index.js test"
   },
   "repository": {
     "type": "git",
@@ -24,5 +25,9 @@
     "converter",
     "convert"
   ],
-  "homepage": "https://github.com/knt5/jpgis-convert"
+  "homepage": "https://github.com/knt5/jpgis-convert",
+  "devDependencies": {
+    "eslint": "^3.8.1",
+    "eslint-config-airbnb-base": "^9.0.0"
+  }
 }
