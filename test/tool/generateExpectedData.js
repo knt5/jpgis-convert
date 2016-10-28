@@ -7,10 +7,10 @@ const typeId = {
 	'堅ろう無壁舎': 3
 };
 
-const dir = '../../city-generator/tools/data/gsi-tokyo/building-peripheral-line/FG-GML-533946-11-20151001/';
+const dir =  '../../../city-generator/tools/data/gsi-tokyo/building-peripheral-line/FG-GML-533946-11-20151001/';
 
 convert([
-	'../test/data/input.xml'
+	'../data/input.xml'
 ], {
 	output: 'expected.geojson',
 	typeId,
