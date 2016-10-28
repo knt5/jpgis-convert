@@ -10,7 +10,7 @@ const typeId = {
 const dir = '../../city-generator/tools/data/gsi-tokyo/building-peripheral-line/FG-GML-533946-11-20151001/';
 
 convert([
-	'../test/data/input/data.xml'
+	'../test/data/input.xml'
 ], {
 	output: 'expected.geojson',
 	typeId,
