@@ -10,7 +10,7 @@
   "scripts": {
     "test": "NODE_PATH=$npm_package_config_node_path mocha --colors --reporter spec 'test/test/standard/**/*.spec.js'",
     "test:advanced": "NODE_PATH=$npm_package_config_node_path mocha --colors --reporter spec 'test/test/advanced/**/*.spec.js'",
-    "lint": "eslint index.js test"
+    "lint": "eslint *.js test"
   },
   "repository": {
     "type": "git",
