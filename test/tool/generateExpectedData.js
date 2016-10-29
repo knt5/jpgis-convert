@@ -24,6 +24,13 @@ const options = [
 			'普通無壁舎',
 		]),
 	},
+	{
+		output: 'expectedDataWithCustomizedTypeIds.geojson',
+		typeId: {
+			普通建物: 5000,
+			堅ろう建物: 8888,
+		},
+	},
 ];
 
 let i = 0;
