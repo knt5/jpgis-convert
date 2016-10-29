@@ -1,5 +1,7 @@
 const convert = require('./old-stable-jpgis-convert');
 
+const dir =  '../../../city-generator/tools/data/gsi-tokyo/building-peripheral-line/FG-GML-533946-11-20151001/';
+
 const typeId = {
 	'普通建物': 0,
 	'堅ろう建物': 1,
@@ -8,21 +10,14 @@ const typeId = {
 };
 
 const input = [
-	'../data/input.xml'
+		dir + 'FG-GML-533946-BldA-20151001-0001.xml',
+		dir + 'FG-GML-533946-BldA-20151001-0002.xml'
 ];
 
 let options = [
 	{
-		output: 'expectedData.geojson',
+		output: 'expectedBigData.geojson',
 		typeId
-	},
-	{
-		output: 'expectedDataWithIgnoreTypes.geojson',
-		typeId,
-		ignoreTypes: new Set([
-			'普通建物',
-			'普通無壁舎'
-		])
 	},
 ];
 
