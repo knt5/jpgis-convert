@@ -1,6 +1,6 @@
 # JPGIS GML converter
 
-[JPGIS GML](http://fgd.gsi.go.jp/download/) to GeoJSON converter for type BldA(= building peripheral lines) for [node](https://nodejs.org/).
+[JPGIS GML](http://fgd.gsi.go.jp/download/) to GeoJSON converter for type BldA = building peripheral lines for [node](https://nodejs.org/).
 
 ![image](https://knt5.github.io/assets/img/product/jpgis-convert/jpgis-convert.png)
 
