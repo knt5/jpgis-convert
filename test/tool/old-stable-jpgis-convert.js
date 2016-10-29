@@ -78,7 +78,7 @@ function generateFeatures(filePaths, options, callback) {
 
 					// Output JSON
 					if (count === 0) {
-						output.write(`${json}\n`);
+						output.write(`${json}`);
 					} else {
 						output.write(`,\n${json}`);
 					}
@@ -92,7 +92,7 @@ function generateFeatures(filePaths, options, callback) {
 			pathIndex++;
 
 			if (pathIndex >= filePaths.length) {
-				output.write(']\n}\n', () => {
+				output.write('\n]\n}\n', () => {
 					if (callback) {
 						callback();
 					}
