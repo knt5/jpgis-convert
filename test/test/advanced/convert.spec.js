@@ -14,8 +14,8 @@ const input = [
 		dir + 'FG-GML-533946-BldA-20151001-0002.xml'
 ];
 
-describe('Convert huge files', () => {
-	it('Convert with standard settings', function(done) {
+describe('Huge files conversion', () => {
+	it('Generate right data with standard settings ', function(done) {
 		let output = './test/work/bigData.geojson';
 		let expectedSize = 75674858;
 		let expectedHash = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855';

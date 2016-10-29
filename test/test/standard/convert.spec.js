@@ -7,8 +7,8 @@ const typeId = {
 	'堅ろう無壁舎': 3
 };
 
-describe('Convert standard files', () => {
-	it('Convert with standard settings', (done) => {
+describe('Standard files conversion', () => {
+	it('Generate right data with standard settings', (done) => {
 		const input = './test/data/input.xml';
 		const output = './test/work/data.geojson';
 		const expected = './test/data/expectedData.geojson';
@@ -23,7 +23,7 @@ describe('Convert standard files', () => {
 		});
 	});
 	
-	it('Convert with ignoreTypes setting', (done) => {
+	it('Generate right data with ignoreTypes setting', (done) => {
 		const input = './test/data/input.xml';
 		const output = './test/work/dataWithIgnoreTypes.geojson';
 		const expected = './test/data/expectedDataWithIgnoreTypes.geojson';
