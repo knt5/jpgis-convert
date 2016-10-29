@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 global.expect = require('chai').expect;
 global.convert = require('../../');
 
@@ -7,6 +9,6 @@ global.removeFile = (path) => {
 	} catch (e) {
 		return;
 	}
-	
+
 	fs.unlinkSync(path);
 };
