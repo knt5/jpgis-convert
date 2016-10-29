@@ -16,6 +16,7 @@ module.exports = {
 	globals: {
 		convert: true,
 		expect: true,
+		removeFile: true,
 	},
 	rules: {
 		camelcase: 'error',
