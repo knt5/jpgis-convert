@@ -1,8 +1,8 @@
 const fs = require('fs');
 const readline = require('readline');
 
-// Default output stream = stdout
-let output = process.stdout;
+// Output stream
+let output;
 
 // Default building type name to type ID map
 const defaultTypeIds = {
@@ -19,6 +19,8 @@ module.exports = (filePaths, options, callback) => {
 
 	if (options && options.output) {
 		output = fs.createWriteStream(options.output);
+	} else {
+		output = process.stdout;
 	}
 
 	// JSON head
