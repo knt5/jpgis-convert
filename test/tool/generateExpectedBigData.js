@@ -1,26 +1,34 @@
 const convert = require('./old-stable-jpgis-convert');
 
-const dir =  '../../../city-generator/tools/data/gsi-tokyo/building-peripheral-line/FG-GML-533946-11-20151001/';
+const dir = '../../../city-generator/tools/data/gsi-tokyo/building-peripheral-line/FG-GML-533946-11-20151001/';
 
 const typeId = {
-	'普通建物': 0,
-	'堅ろう建物': 1,
-	'普通無壁舎': 2,
-	'堅ろう無壁舎': 3
+	普通建物: 0,
+	堅ろう建物: 1,
+	普通無壁舎: 2,
+	堅ろう無壁舎: 3,
 };
 
 const input = [
-		dir + 'FG-GML-533946-BldA-20151001-0001.xml',
-		dir + 'FG-GML-533946-BldA-20151001-0002.xml'
+	`${dir}FG-GML-533946-BldA-20151001-0001.xml`,
+	`${dir}FG-GML-533946-BldA-20151001-0002.xml`,
 ];
 
-let options = [
+const options = [
 	{
 		output: 'expectedBigData.geojson',
-		typeId
+		typeId,
 	},
 ];
 
 let i = 0;
+generate();
 
-convert(input, options[i], () => ++i < options.length ? convert(input, options[i]) : 0);
+function generate() {
+	convert(input, options[i], () => {
+		i++;
+		if (i < options.length) {
+			generate();
+		}
+	});
+}

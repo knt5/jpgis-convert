@@ -160,6 +160,7 @@ let getFeature = (() => {
 				ring = [];
 			}
 		}
+		return undefined;
 	};
 })();
 

@@ -5,7 +5,7 @@ const crypto = require('crypto');
 const name = 'expectedBigData.geojson';
 
 // Get size and hash
-const size = fs.statSync(name)['size'];
+const size = fs.statSync(name).size;
 const hash = crypto.createHash('sha256', fs.readFileSync(name).toString())
 	.digest('hex');
 
