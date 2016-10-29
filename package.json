@@ -1,18 +1,10 @@
 {
   "name": "jpgis-convert",
-  "description": "JPGIS GML to GeoJSON converter",
+  "description": "JPGIS GML to GeoJSON converter for type BldA = building peripheral lines",
   "version": "1.0.0",
-  "author": "knt5",
   "license": "MIT",
-  "config": {
-    "node_path": "./test/test"
-  },
-  "scripts": {
-    "test": "NODE_PATH=$npm_package_config_node_path mocha --colors --reporter spec 'test/test/standard/**/*.spec.js'",
-    "test:advanced": "NODE_PATH=$npm_package_config_node_path mocha --colors --reporter spec 'test/test/advanced/**/*.spec.js'",
-    "lint": "eslint *.js test",
-	"watch": "watch 'npm run lint; npm test' ./ --ignoreDirectoryPattern='/node_modules/g' --filter=watch-filter.js --wait=0"
-  },
+  "author": "knt5",
+  "homepage": "https://github.com/knt5/jpgis-convert",
   "repository": {
     "type": "git",
     "url": "https://github.com/knt5/jpgis-convert.git"
@@ -27,7 +19,16 @@
     "converter",
     "convert"
   ],
-  "homepage": "https://github.com/knt5/jpgis-convert",
+  "main": "./index.js",
+  "config": {
+    "node_path": "./test/test"
+  },
+  "scripts": {
+    "test": "NODE_PATH=$npm_package_config_node_path mocha --colors --reporter spec 'test/test/standard/**/*.spec.js'",
+    "test:advanced": "NODE_PATH=$npm_package_config_node_path mocha --colors --reporter spec 'test/test/advanced/**/*.spec.js'",
+    "lint": "eslint *.js test",
+	"watch": "watch 'npm run lint; npm test' ./ --ignoreDirectoryPattern='/node_modules/g' --filter=watch-filter.js --wait=0"
+  },
   "devDependencies": {
     "chai": "^3.5.0",
     "eslint": "^3.8.1",
