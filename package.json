@@ -5,10 +5,10 @@
   "author": "knt5",
   "license": "MIT",
   "config": {
-    "node_path": "./src:./test"
+    "node_path": "./test/test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_PATH=$npm_package_config_node_path mocha --colors --reporter spec 'test/test/standard/**/*.js'",
     "test:advanced": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint index.js test"
   },
@@ -28,7 +28,9 @@
   ],
   "homepage": "https://github.com/knt5/jpgis-convert",
   "devDependencies": {
+    "chai": "^3.5.0",
     "eslint": "^3.8.1",
-    "eslint-config-airbnb-base": "^9.0.0"
+    "eslint-config-airbnb-base": "^9.0.0",
+    "mocha": "^3.1.2"
   }
 }
