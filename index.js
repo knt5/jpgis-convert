@@ -92,11 +92,11 @@ function generateFeatures(filePaths, options, callback) {
 			pathIndex++;
 
 			if (pathIndex >= filePaths.length) {
-				output.write(']\n}\n');
-
-				if (callback) {
-					callback();
-				}
+				output.write(']\n}\n', () => {
+					if (callback) {
+						callback();
+					}
+				});
 			} else {
 				reader = createReadline();
 				registerReadLineHandler(reader);
