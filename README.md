@@ -46,9 +46,7 @@ convert(['input1.xml', 'input2.xml'], {
 	output: 'output.geojson',
 	typeIds: {
 		'普通建物': 0,
-		'堅ろう建物': 1,
-		'普通無壁舎': 2,
-		'堅ろう無壁舎': 3
+		'堅ろう建物': 1
 	},
 	ignoreTypes: new Set(['普通無壁舎', '堅ろう無壁舎'])
 }, () => console.log('finished'));
