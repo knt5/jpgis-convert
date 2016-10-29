@@ -1,26 +1,32 @@
-# jpgis-convert
+# JPGIS GML converter
 
-[JPGIS GML](http://fgd.gsi.go.jp/download/) to GeoJSON converter for [node](https://nodejs.org/).
+[JPGIS GML](http://fgd.gsi.go.jp/download/) to GeoJSON converter for type BldA(= building peripheral lines) for [node](https://nodejs.org/).
 
-It works for the BldA type files of JPGIS GML that is peripheral lines of buildings. It's NOT a XML parser.
+![image](https://knt5.github.io/assets/img/product/jpgis-convert/jpgis-convert.png)
 
 ## Installation
 
 ```
-npm install --save jpgis-convert  # Not yet
+npm i jpgis-convert
 ```
 
 ## Usage
 
+### Example
+
 ```
 const convert = require('jpgis-convert');
-convert(files, options, callback);
+convert(['input1.xml', 'input2.xml'], {
+	output: 'output.geojson'
+});
 ```
 
-- files - ```Array``` of BldA.xml file path strings or ```String``` of the path.
-- options - ```Object``` of the following keys and values
-	- output - ```String``` of an output file path. If you don't set, stdout is used.
-	- typeId - ```Object``` of type name to type ID mapper. BldA.xml has only names. Example:
+### convert(files [, options [, callback]])
+
+- files - ```Array``` of ```String``` of BldA.xml file path
+- options:
+	- ```output``` - ```String``` of an output file path. If you don't set it, ```convert()``` outputs to ```stdout```.
+	- ```typeIds``` - ```Object``` of building type name to ID mapper. Default:
 	```
 	{
 		'普通建物': 0,
@@ -29,29 +35,25 @@ convert(files, options, callback);
 		'堅ろう無壁舎': 3
 	}
 	```
-	- ignoreTypes - ```Set``` of building type names to ignore like "普通建物".
-- callback - ```Function``` to be called when the process finished.
+	- ```ignoreTypes``` - Building type name ```Set``` to ignore.
+- callback - The ```Function``` is called when ```convert()``` finished. It takes no arguments.
 
-### Example
+A full option example:
 
 ```
 const convert = require('jpgis-convert');
-
-convert([
-	'path/to/FG-GML-533935-BldA-20160401-0001.xml',
-	'path/to/FG-GML-533935-BldA-20160401-0002.xml'
-], {
+convert(['input1.xml', 'input2.xml'], {
 	output: 'output.geojson',
-	typeId: {
+	typeIds: {
 		'普通建物': 0,
 		'堅ろう建物': 1,
 		'普通無壁舎': 2,
 		'堅ろう無壁舎': 3
 	},
-	ignoreTypes: new Set(['普通無壁舎'])
+	ignoreTypes: new Set(['普通無壁舎', '堅ろう無壁舎'])
 }, () => console.log('finished'));
 ```
 
 ## Background and purpose
 
-In May 2016, I found [FGDV](http://fgd.gsi.go.jp/download/menu.php) can't handle coordinates in ```<gml:interior>``` tags in ```<BldA>``` as individual ring. Coordinates of ```<gml:interior>``` and ```<gml:exterior>``` tags are merged to a ring. It converts JPGIS GML to broken shape files or any formats. [PSEA](http://psgsv2.gsi.go.jp/koukyou/public/sien/pindex.html) had a same problem. I needed a tool to convert JPGIS GML (type BldA) to right GeoJSON for [my project](https://github.com/knt5/city-generator).
+In May 2016, I found the tool [FGDV](http://fgd.gsi.go.jp/download/menu.php) of the government of Japan can't handle coordinates in ```<gml:interior>``` tags in ```<BldA>``` as individual ring. Coordinates in ```<gml:interior>``` and ```<gml:exterior>``` tags are merged to a ring. It converts JPGIS GML to broken shape files. [PSEA](http://psgsv2.gsi.go.jp/koukyou/public/sien/pindex.html) had a same problem. I needed a tool to convert JPGIS GML to right GeoJSON for [my project](https://github.com/knt5/city-generator).
