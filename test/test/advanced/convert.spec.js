@@ -2,13 +2,6 @@ const fs = require('fs');
 const crypto = require('crypto');
 require('helper');
 
-const typeId = {
-	普通建物: 0,
-	堅ろう建物: 1,
-	普通無壁舎: 2,
-	堅ろう無壁舎: 3,
-};
-
 const dir = '../city-generator/tools/data/gsi-tokyo/building-peripheral-line/FG-GML-533946-11-20151001/';
 const input = [
 	`${dir}FG-GML-533946-BldA-20151001-0001.xml`,
@@ -27,7 +20,6 @@ describe('Huge files conversion', () => {
 
 		convert(input, {
 			output,
-			typeId,
 		}, () => {
 			const size = fs.statSync(output).size;
 			const hash = crypto.createHash('sha256', fs.readFileSync(output).toString()).digest('hex');
