@@ -6,7 +6,7 @@ const name = 'expectedBigData.geojson';
 
 // Get size and hash
 const size = fs.statSync(name)['size'];
-const hash = crypto.createHmac('sha256', fs.readFileSync(name).toString())
+const hash = crypto.createHash('sha256', fs.readFileSync(name).toString())
 	.digest('hex');
 
 // Output
