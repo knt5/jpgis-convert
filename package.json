@@ -10,7 +10,8 @@
   "scripts": {
     "test": "NODE_PATH=$npm_package_config_node_path mocha --colors --reporter spec 'test/test/standard/**/*.spec.js'",
     "test:advanced": "NODE_PATH=$npm_package_config_node_path mocha --colors --reporter spec 'test/test/advanced/**/*.spec.js'",
-    "lint": "eslint *.js test"
+    "lint": "eslint *.js test",
+	"watch": "watch 'npm test' ./ --ignoreDirectoryPattern='/node_modules/g' --filter=watch-filter.js --wait=0"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "chai": "^3.5.0",
     "eslint": "^3.8.1",
     "eslint-config-airbnb-base": "^9.0.0",
-    "mocha": "^3.1.2"
+    "mocha": "^3.1.2",
+    "watch": "^1.0.1"
   }
 }
