@@ -23,6 +23,8 @@ describe('Huge files conversion', () => {
 
 		this.timeout(30 * 1000);
 
+		removeFile(output);
+
 		convert(input, {
 			output,
 			typeId,

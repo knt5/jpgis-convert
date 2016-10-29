@@ -14,6 +14,8 @@ describe('Standard files conversion', () => {
 		const output = './test/work/data.geojson';
 		const expected = './test/data/expectedData.geojson';
 
+		removeFile(output);
+
 		convert([input], {
 			output,
 			typeId,
@@ -28,6 +30,8 @@ describe('Standard files conversion', () => {
 		const input = './test/data/input.xml';
 		const output = './test/work/dataWithIgnoreTypes.geojson';
 		const expected = './test/data/expectedDataWithIgnoreTypes.geojson';
+
+		removeFile(output);
 
 		convert([input], {
 			output,
