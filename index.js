@@ -1,120 +1,100 @@
 const fs = require('fs');
 const readline = require('readline');
 
-// =========================================================
-// Output stream
+// Default output stream = stdout
 let output = process.stdout;
 
-// =========================================================
-/**
- * Convert JPGIS GML files to GeoJSON
- */
-function convert(filePath, options, callback) {
-	let filePaths;
+// Default building type name to type ID map
+const defaultTypeIds = {
+	普通建物: 0,
+	堅ろう建物: 1,
+	普通無壁舎: 2,
+	堅ろう無壁舎: 3,
+};
 
-	// Make filePaths
-	if (typeof filePath === 'string') {
-		filePaths = [filePath];
-	} else if (typeof filePath === 'object' && filePath instanceof Array) {
-		filePaths = filePath;
-	}
-
-	// Throw Error
+module.exports = (filePaths, options, callback) => {
 	if (!filePaths) {
-		throw new TypeError('1st argument must be string or array');
+		throw new Error('Missing filePaths');
 	}
 
-	// Open output file
-	if (options.output) {
+	if (options && options.output) {
 		output = fs.createWriteStream(options.output);
 	}
 
-	// Output header
-	output.write('{\n');
-	output.write('"type":"FeatureCollection",\n');
-	output.write('"crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:EPSG::4612"}},\n');
-	output.write('"features":[\n');
+	// JSON head
+	// (Not to use JSON.stringify() to process huge data with reading/writing stream)
+	output.write(`{
+"type":"FeatureCollection",
+"crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:EPSG::4612"}},
+"features":[
+`);
 
-	// Generate and output features
-	generateFeatures(filePaths, options, callback);
-}
+	convert(0, filePaths, options, callback);
+};
 
-// =========================================================
-/**
- * Generate features from multiple JPGIS GML files
- */
-function generateFeatures(filePaths, options, callback) {
+function convert(index, filePaths, options, callback) {
 	let count = 0;
-	let pathIndex = 0;
-	let reader;
 	let ignoreTypes;
-	let typeId;
-	if (options) {
+	let typeIds;
+
+	if (options && options.ignoreTypes) {
 		ignoreTypes = options.ignoreTypes;
-		typeId = options.typeId;
 	}
 
-	function createReadline() {
-		return readline.createInterface({
-			input: fs.ReadStream(filePaths[pathIndex]),
-			output: null,
-		});
+	if (options && options.typeIds) {
+		typeIds = options.typeIds;
+	} else {
+		typeIds = defaultTypeIds;
 	}
 
-	function registerReadLineHandler(rl) {
-		rl.on('line', (line) => {
-			const feature = getFeature(line);
+	const reader = createReader(filePaths[index]);
 
-			if (feature) {
-				// Check options.ignoreTypes to ignore the feature or not
-				if (!ignoreTypes || (ignoreTypes && !ignoreTypes.has(feature.properties.type))) {
-					// Convert type name to id
-					if (typeId !== undefined && typeId[feature.properties.type] !== undefined) {
-						feature.properties.type = typeId[feature.properties.type];
-					}
+	reader.on('line', (line) => {
+		const feature = getFeature(line);
 
-					// Convert to JSON string
-					const json = JSON.stringify(feature);
-
-					// Output JSON
-					if (count === 0) {
-						output.write(`${json}\n`);
-					} else {
-						output.write(`,\n${json}`);
-					}
-
-					// Increment count of outputted features
-					count++;
+		if (feature) {
+			const typeName = feature.properties.type;
+			if (!ignoreTypes || (ignoreTypes && !ignoreTypes.has(typeName))) {
+				// Save type ID
+				if (typeIds && typeIds[typeName] !== undefined) {
+					feature.properties.type = typeIds[typeName];
 				}
-			}
-		}).on('close', () => {
-			// Next index of JPGIS GML file path
-			pathIndex++;
 
-			if (pathIndex >= filePaths.length) {
-				output.write(']\n}\n', () => {
-					if (callback) {
-						callback();
-					}
-				});
-			} else {
-				reader = createReadline();
-				registerReadLineHandler(reader);
-				reader.resume();
-			}
-		});
-	}
+				// Write a feature JSON
+				const json = JSON.stringify(feature);
+				if (index !== 0 || (index === 0 && count !== 0)) {
+					output.write(',\n');
+				}
+				output.write(json);
 
-	reader = createReadline();
-	registerReadLineHandler(reader);
+				count++;
+			}
+		}
+	}).on('close', () => {
+		if (index + 1 < filePaths.length) {
+			// Next
+			convert(index + 1, filePaths, options, callback);
+		} else {
+			// Finish
+			output.write('\n]\n}\n', () => {
+				if (callback) {
+					callback();
+				}
+			});
+		}
+	});
+
 	reader.resume();
 }
 
-// =========================================================
-/**
- * Get feature
- */
-let getFeature = (() => {
+function createReader(filePath) {
+	return readline.createInterface({
+		input: fs.ReadStream(filePath),
+		output: null,
+	});
+}
+
+const getFeature = (() => {
 	let feature;
 	let ring;
 	let opened = false;
@@ -160,10 +140,7 @@ let getFeature = (() => {
 				ring = [];
 			}
 		}
-		return undefined;
+
+		return null;
 	};
 })();
-
-// =========================================================
-// Export
-module.exports = convert;
