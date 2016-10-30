@@ -1,7 +1,7 @@
 {
   "name": "jpgis-convert",
-  "description": "JPGIS GML to GeoJSON converter for type BldA = building peripheral lines",
-  "version": "1.0.0",
+  "description": "JPGIS GML to GeoJSON converter",
+  "version": "1.0.1",
   "license": "MIT",
   "author": "knt5",
   "homepage": "https://github.com/knt5/jpgis-convert",
