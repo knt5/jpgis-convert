@@ -26,7 +26,7 @@
   "scripts": {
     "test": "NODE_PATH=$npm_package_config_node_path mocha --colors --reporter spec 'test/test/standard/**/*.spec.js'",
     "test:advanced": "NODE_PATH=$npm_package_config_node_path mocha --colors --reporter spec 'test/test/advanced/**/*.spec.js'",
-    "lint": "eslint *.js test",
+    "lint": "eslint .",
     "watch": "watch 'npm run lint; npm test' ./ --ignoreDirectoryPattern='/node_modules/g' --filter=watch-filter.js --wait=0"
   },
   "devDependencies": {
