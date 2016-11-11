@@ -1,5 +1,7 @@
 # JPGIS GML converter
 
+[![Build Status](https://travis-ci.org/knt5/jpgis-convert.svg?branch=master)](https://travis-ci.org/knt5/jpgis-convert)
+
 ![JPGIS GML converter](https://knt5.github.io/assets/img/product/jpgis-convert/jpgis-convert.png)
 
 [JPGIS GML](http://fgd.gsi.go.jp/download/) to GeoJSON converter for building peripheral lines (=BldA) for [node](https://nodejs.org/).
