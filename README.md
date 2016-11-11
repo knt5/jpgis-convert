@@ -56,4 +56,4 @@ convert(['input1.xml', 'input2.xml'], {
 
 ## Background and purpose
 
-In May 2016, I found the tool [FGDV](http://fgd.gsi.go.jp/download/menu.php) of the government of Japan can't handle coordinates in ```<gml:interior>``` tags in ```<BldA>``` as individual ring. Coordinates in ```<gml:interior>``` and ```<gml:exterior>``` tags are merged to a ring. It converts JPGIS GML to broken shape files. [PSEA](http://psgsv2.gsi.go.jp/koukyou/public/sien/pindex.html) had a same problem. I needed a tool to convert JPGIS GML to right GeoJSON for [my project](https://github.com/knt5/city-generator).
+In May 2016, I found the tool [FGDV](http://fgd.gsi.go.jp/download/menu.php) of the government of Japan can't handle coordinates in ```<gml:interior>``` tags in ```<BldA>``` as individual ring. Coordinates in ```<gml:interior>``` and ```<gml:exterior>``` tags are merged to a ring. It converts JPGIS GML to broken shape files. [PSEA](http://psgsv2.gsi.go.jp/koukyou/public/sien/pindex.html) had a same problem. I needed a tool to convert JPGIS GML to right GeoJSON for [my project](https://knt5.github.io/demo/city-generator/).
